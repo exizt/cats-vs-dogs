@@ -6,6 +6,8 @@
 
 
 
+nbviewer로 코드 보기 (https://nbviewer.jupyter.org/github/exizt/cats-vs-dogs/blob/master/output/my-dogs-vs-cats-study.ipynb)
+
 
 
 ## 폴더, 파일 구성
