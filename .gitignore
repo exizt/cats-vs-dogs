@@ -3,3 +3,4 @@ input/*
 output/extract
 output/train
 *.h5
+my-dogs-vs-cats-study-kaggle.*
