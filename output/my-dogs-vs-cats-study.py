@@ -496,6 +496,8 @@ if MODEL_TYPE == ModelType.CNN or MODEL_TYPE == ModelType.ALL:
 # Epoch 50/50
 # 748/748 [==============================] - 120s 161ms/step - loss: 0.1375 - acc: 0.9448 - val_loss: 0.1340 - val_acc: 0.9501
 # ```
+#
+# 최대치 : 0.9501
 
 # ## 3.1.4. 모델 저장 (CNN)
 
@@ -611,7 +613,7 @@ if MODEL_TYPE == ModelType.VGG16 or MODEL_TYPE == ModelType.ALL:
         keras.callbacks.ModelCheckpoint(
             filepath='cats_vs_dogs_vgg16.h5',
             monitor='loss',
-            svae_best_only=True)
+            save_best_only=True)
     ]
 
     # 학습 시작
@@ -717,45 +719,80 @@ if MODEL_TYPE == ModelType.DENSENET201 or MODEL_TYPE == ModelType.ALL:
     history = model_densenet201.fit(
         train_generator,
         validation_data=valid_generator,
-        epochs = 15,
+        epochs = 50,
         callbacks=[
             tf.keras.callbacks.EarlyStopping(
                 monitor='val_loss',
                 patience=10,
-                restore_best_weights=True)]
+                restore_best_weights=True),
+            tf.keras.callbacks.ModelCheckpoint(
+                filepath='cats_vs_dogs_densenet201.h5',
+                monitor='val_loss',
+                save_best_only=True)
+        ]
     )
 
 # ```
-# Epoch 1/15
-# 748/748 [==============================] - 136s 169ms/step - loss: 0.1703 - acc: 0.9260 - val_loss: 0.0596 - val_acc: 0.9749
-# Epoch 2/15
-# 748/748 [==============================] - 123s 165ms/step - loss: 0.1125 - acc: 0.9520 - val_loss: 0.0512 - val_acc: 0.9791
-# Epoch 3/15
-# 748/748 [==============================] - 123s 164ms/step - loss: 0.1106 - acc: 0.9540 - val_loss: 0.0523 - val_acc: 0.9794
-# Epoch 4/15
-# 748/748 [==============================] - 123s 164ms/step - loss: 0.1039 - acc: 0.9561 - val_loss: 0.0673 - val_acc: 0.9725
-# Epoch 5/15
-# 748/748 [==============================] - 123s 165ms/step - loss: 0.1000 - acc: 0.9600 - val_loss: 0.0489 - val_acc: 0.9808
-# Epoch 6/15
-# 748/748 [==============================] - 123s 164ms/step - loss: 0.0920 - acc: 0.9624 - val_loss: 0.0482 - val_acc: 0.9802
-# Epoch 7/15
-# 748/748 [==============================] - 124s 165ms/step - loss: 0.0969 - acc: 0.9601 - val_loss: 0.0490 - val_acc: 0.9791
-# Epoch 8/15
-# 748/748 [==============================] - 123s 165ms/step - loss: 0.0928 - acc: 0.9638 - val_loss: 0.0459 - val_acc: 0.9824
-# Epoch 9/15
-# 748/748 [==============================] - 124s 165ms/step - loss: 0.0870 - acc: 0.9628 - val_loss: 0.0571 - val_acc: 0.9767
-# Epoch 10/15
-# 748/748 [==============================] - 126s 169ms/step - loss: 0.0837 - acc: 0.9661 - val_loss: 0.0535 - val_acc: 0.9781
-# Epoch 11/15
-# 748/748 [==============================] - 124s 165ms/step - loss: 0.0795 - acc: 0.9681 - val_loss: 0.0469 - val_acc: 0.9824
-# Epoch 12/15
-# 748/748 [==============================] - 124s 166ms/step - loss: 0.0796 - acc: 0.9665 - val_loss: 0.0475 - val_acc: 0.9824
-# Epoch 13/15
-# 748/748 [==============================] - 124s 165ms/step - loss: 0.0843 - acc: 0.9661 - val_loss: 0.0473 - val_acc: 0.9834
-# Epoch 14/15
-# 748/748 [==============================] - 128s 170ms/step - loss: 0.0780 - acc: 0.9721 - val_loss: 0.0516 - val_acc: 0.9812
-# Epoch 15/15
-# 748/748 [==============================] - 124s 165ms/step - loss: 0.0754 - acc: 0.9697 - val_loss: 0.0484 - val_acc: 0.9818
+# Epoch 1/50
+# 748/748 [==============================] - 119s 160ms/step - loss: 0.0985 - acc: 0.9602 - val_loss: 0.0513 - val_acc: 0.9794
+# Epoch 2/50
+# 748/748 [==============================] - 120s 161ms/step - loss: 0.1012 - acc: 0.9582 - val_loss: 0.0495 - val_acc: 0.9787
+# Epoch 3/50
+# 748/748 [==============================] - 119s 159ms/step - loss: 0.0985 - acc: 0.9597 - val_loss: 0.0481 - val_acc: 0.9808
+# Epoch 4/50
+# 748/748 [==============================] - 120s 161ms/step - loss: 0.0960 - acc: 0.9612 - val_loss: 0.0573 - val_acc: 0.9775
+# Epoch 5/50
+# 748/748 [==============================] - 120s 161ms/step - loss: 0.0926 - acc: 0.9623 - val_loss: 0.0654 - val_acc: 0.9749
+# Epoch 6/50
+# 748/748 [==============================] - 120s 160ms/step - loss: 0.0912 - acc: 0.9634 - val_loss: 0.0512 - val_acc: 0.9806
+# Epoch 7/50
+# 748/748 [==============================] - 120s 161ms/step - loss: 0.0866 - acc: 0.9638 - val_loss: 0.0520 - val_acc: 0.9808
+# Epoch 8/50
+# 748/748 [==============================] - 120s 160ms/step - loss: 0.0823 - acc: 0.9671 - val_loss: 0.0516 - val_acc: 0.9789
+# Epoch 9/50
+# 748/748 [==============================] - 120s 160ms/step - loss: 0.0834 - acc: 0.9669 - val_loss: 0.0531 - val_acc: 0.9794
+# Epoch 10/50
+# 748/748 [==============================] - 120s 160ms/step - loss: 0.0835 - acc: 0.9661 - val_loss: 0.0502 - val_acc: 0.9794
+# Epoch 11/50
+# 748/748 [==============================] - 120s 160ms/step - loss: 0.0772 - acc: 0.9688 - val_loss: 0.0479 - val_acc: 0.9836
+# Epoch 12/50
+# 748/748 [==============================] - 122s 163ms/step - loss: 0.0796 - acc: 0.9679 - val_loss: 0.0533 - val_acc: 0.9810
+# Epoch 13/50
+# 748/748 [==============================] - 121s 162ms/step - loss: 0.0760 - acc: 0.9694 - val_loss: 0.0547 - val_acc: 0.9781
+# Epoch 14/50
+# 748/748 [==============================] - 121s 161ms/step - loss: 0.0749 - acc: 0.9695 - val_loss: 0.0619 - val_acc: 0.9749
+# Epoch 15/50
+# 748/748 [==============================] - 119s 159ms/step - loss: 0.0758 - acc: 0.9696 - val_loss: 0.0660 - val_acc: 0.9753
+# Epoch 16/50
+# 748/748 [==============================] - 119s 160ms/step - loss: 0.0738 - acc: 0.9706 - val_loss: 0.0501 - val_acc: 0.9794
+# Epoch 17/50
+# 748/748 [==============================] - 119s 160ms/step - loss: 0.0705 - acc: 0.9706 - val_loss: 0.0620 - val_acc: 0.9777
+# Epoch 18/50
+# 748/748 [==============================] - 119s 159ms/step - loss: 0.0685 - acc: 0.9737 - val_loss: 0.0475 - val_acc: 0.9820
+# Epoch 19/50
+# 748/748 [==============================] - 119s 159ms/step - loss: 0.0676 - acc: 0.9724 - val_loss: 0.0495 - val_acc: 0.9812
+# Epoch 20/50
+# 748/748 [==============================] - 119s 159ms/step - loss: 0.0671 - acc: 0.9733 - val_loss: 0.0492 - val_acc: 0.9824
+# Epoch 21/50
+# 748/748 [==============================] - 118s 158ms/step - loss: 0.0623 - acc: 0.9744 - val_loss: 0.0576 - val_acc: 0.9787
+# Epoch 22/50
+# 748/748 [==============================] - 119s 159ms/step - loss: 0.0651 - acc: 0.9743 - val_loss: 0.0492 - val_acc: 0.9820
+# Epoch 23/50
+# 748/748 [==============================] - 118s 158ms/step - loss: 0.0598 - acc: 0.9769 - val_loss: 0.0530 - val_acc: 0.9814
+# Epoch 24/50
+# 748/748 [==============================] - 119s 160ms/step - loss: 0.0642 - acc: 0.9755 - val_loss: 0.0486 - val_acc: 0.9818
+# Epoch 25/50
+# 748/748 [==============================] - 119s 159ms/step - loss: 0.0629 - acc: 0.9757 - val_loss: 0.0511 - val_acc: 0.9818
+# Epoch 26/50
+# 748/748 [==============================] - 118s 158ms/step - loss: 0.0588 - acc: 0.9786 - val_loss: 0.0483 - val_acc: 0.9826
+# Epoch 27/50
+# 748/748 [==============================] - 119s 159ms/step - loss: 0.0548 - acc: 0.9788 - val_loss: 0.0498 - val_acc: 0.9812
+# Epoch 28/50
+# 748/748 [==============================] - 118s 158ms/step - loss: 0.0559 - acc: 0.9781 - val_loss: 0.0509 - val_acc: 0.9814
 # ```
+#
+# 최대치 : 0.9836
 
-
+# 모델 파일 저장하기.
+if MODEL_TYPE == ModelType.DENSENET201 or MODEL_TYPE == ModelType.ALL:
+    model_densenet201.save('cats_vs_dogs_cnn.h5')
